@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.1/pdfmake.min.js" integrity="sha512-G332POpNexhCYGoyPfct/0/K1BZc4vHO5XSzRENRML0evYCaRpAUNxFinoIJCZFJlGGnOWJbtMLgEGRtiCJ0Yw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.0-beta.1/vfs_fonts.js" integrity="sha512-fKVi1B/J43iqLmiuc8lKOsEDDCQvRikdmL0kv8C7L4JVU25UWACbVYqQeTRo2sAoY+AsAndhP+NZ9isxRLmOAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div>
+        <p>Nome:</p>
+        <input type="text" id="nome" />
+        <br>
+        <select id="selectEspecialista">
+            <option value="psiquiatra">Psiquiatra</option>
+            <option value="pneumologista">Pneumologista</option>
+            <option value="otorrinolaringologista">Otorrinolaringologista</option>
+        </select>
+        <br>
+        <p>Descrição da alteração</p>
+        <input id="description" type="text">
+        <br>
+        <button id="pdfBtn">Criar PDF </button>
+    </div>
+    <script>
+  
+    let pdfgenerator = document.querySelector('#pdfBtn');
+    pdfgenerator.addEventListener('click', createPDF);
+    function createPDF(){
+              let nome = document.querySelector('#nome').value;
+              let especialista = document.querySelector('#selectEspecialista').value;
+              let descricao = document.querySelector('#description').value;
+
+        let dd = {
+	    content: [
+		    `Encaminho o paciente ${nome} para consulta com o ${especialista}`,
+		    'devido a alteração em exame ocupacional:',
+            `${descricao}.`
+
+	        ]
+        }
+            pdfMake.createPdf(dd).download();
+    }
+    </script>
+</body>
+</html>
